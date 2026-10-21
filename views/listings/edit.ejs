@@ -21,9 +21,36 @@
            <img src="<%= ImageUrl %>"/>
         </div>
         <div class="mb-3">
-            <label for="image" class="form-lable">Upload new Image</label>
-            <input type="file"   name="listing[image]" class="form-control" >
-        </div>
+    <label class="form-label">Upload New PG Photos</label>
+
+    <input
+        type="file"
+        name="listing[image]"
+        class="form-control mb-2"
+        accept="image/*"
+    >
+
+    <input
+        type="file"
+        name="listing[image2]"
+        class="form-control mb-2"
+        accept="image/*"
+    >
+
+    <input
+        type="file"
+        name="listing[image3]"
+        class="form-control mb-2"
+        accept="image/*"
+    >
+
+    <input
+        type="file"
+        name="listing[image4]"
+        class="form-control"
+        accept="image/*"
+    >
+</div>
         <div class="row">
         <div class="mb-3 col-md-4">
             <label for="price" class="form-lable">Price</label>

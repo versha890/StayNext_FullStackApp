@@ -1,92 +1,412 @@
 <% layout("/layout/boilerplate") %>
-<div class="row mt-3">
-    <div class="col-8 offset-3" >
-        <h2><b><%=listing.title%> </b></h2>
+
+<div class="pg-page">
+
+    <!-- PHOTO GALLERY -->
+    <div class="pg-gallery">
+
+    <!-- Main Photo -->
+    <div class="pg-main-image">
+        <img src="<%= listing.image.url %>" alt="PG Image">
     </div>
-    <div class="card col-6 offset-3 show-card listing-card">
-        <img src="<%=listing.image.url%>" 
-        class="card-img-top show-img" 
-        alt="Listing-image"
-        />
-        <div class="card-body">
-        <p class="card-text"><%=listing.owner.username %></p>
-        <p class="card-text"><%=listing.description %></p> 
-        <p class="card-text"><%=listing.price%></p> 
-        <p class="card-text"><%= listing.location %></p>
-        <p class="card-text"><%= listing.country %></p>
-        </>
-        </div>
-    </div>
-        <br>
-        <div class="btns">
-            <a href="/listings/<%=listing._id%>/edit" class="btn btn-dark col-1 offset-3 btn-style editbtn">Edit</a>
 
-            <form method="POST" action="/listings/<%= listing._id%>?_method=DELETE">
-            <button class="btn btn-dark offset-5" >DELETE</button>
-            </form>
-        </div>
-        <br>
-        <br><br>
+    <!-- Side Photos -->
+    <div class="pg-side-images">
 
-        <hr>
-
-        <div class="col-8 offset-3">
-            <% if(currUser) {%>
-            <h4>Leave a review</h4>
-            <form action="/listings/<%=listing.id%>/reviews" method="POST" novalidate class="needs-validation">
-                <!-- <div class="mb-3 mt-3">
-                    <label for="rating" class="form-lable"> Rating</label>
-                    <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range">
-                </div> -->
-                <div class="mb-3 mt-3">
-                    <label for="rating" class="form-lable"> Rating</label>
-                <fieldset class="starability-slot">
-
-  <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
-  <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-  <label for="first-rate1" title="Terrible">1 star</label>
-  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-  <label for="first-rate2" title="Not good">2 stars</label>
-  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-  <label for="first-rate3" title="Average">3 stars</label>
-  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-  <label for="first-rate4" title="Very good">4 stars</label>
-  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-  <label for="first-rate5" title="Amazing">5 stars</label>
-</fieldset>
+       <div class="pg-small-image">
+    <% if(listing.image2 && listing.image2.url) { %>
+        <img src="<%= listing.image2.url %>" alt="PG Image">
+    <% } %>
 </div>
-                <div class="mb-3 mt-3">
-                    <label for="comment" class="form-lable"> Comments</label>
-                    <textarea  name="review[comment]" 
-                    id="comment" 
-                    cols="30" 
-                    rows="5" 
-                    class="form-control"
-                    required
-                    ></textarea>
-                    <div class="invalid-feedback">Please add commnet</div>
-                </div>
 
-                <button class="btn btn-outline-dark">Submit</button>
-            </form>
-            <% } %>
-            <hr>
+<div class="pg-small-image">
+    <% if(listing.image3 && listing.image3.url) { %>
+        <img src="<%= listing.image3.url %>" alt="PG Image">
+    <% } %>
+</div>
 
-            <p><b>All Reviews</b></p>
-            <div class="row">
-            <% for(review of listing.reviews){%>
-                <div class="card col-5 ms-3 mb-3 ">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= review.author.username %></h5>
-                         <p class="starability-result card-text" data-rating=<%=review.rating%> ></p>
-                        <p class="card-text"><%=review.comment%></p>
-                    </div>
-                    <br>
-                    <form class="mb-3" method="POST" action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE" >
-                        <button class="btn btn-sm btn-dark">Delete</button>
-                    </form>
-                </div>
-                <%}%>
+<div class="pg-small-image">
+    <% if(listing.image4 && listing.image4.url) { %>
+        <img src="<%= listing.image4.url %>" alt="PG Image">
+    <% } %>
+</div>
+
+    </div>
+
+</div>
+
+
+    <!-- MAIN CONTENT -->
+    <div class="pg-content">
+
+        <!-- LEFT -->
+        <div class="pg-left">
+
+            <div class="pg-title-row">
+                <h1><%= listing.title %></h1>
+
+                <span class="gender-badge">
+                    Girls
+                </span>
             </div>
+
+
+            <!-- Location -->
+            <div class="pg-location">
+                <i class="fa-solid fa-location-dot"></i>
+                <span><%= listing.location %></span>
+            </div>
+
+
+            <!-- Description -->
+            <div class="pg-description">
+                <p>
+                    <%= listing.description %>
+                </p>
+            </div>
+
+
+            <!-- AMENITIES -->
+            <h2 class="section-heading">
+                Amenities
+            </h2>
+
+            <div class="amenities-grid">
+
+                <div class="amenity">
+                    <i class="fa-solid fa-wifi"></i>
+                    <span>WiFi</span>
+                </div>
+
+                <div class="amenity">
+                    <i class="fa-solid fa-utensils"></i>
+                    <span>Food</span>
+                </div>
+
+                <div class="amenity">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Security</span>
+                </div>
+
+                <div class="amenity">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Power Backup</span>
+                </div>
+
+                <div class="amenity">
+                    <i class="fa-solid fa-snowflake"></i>
+                    <span>AC</span>
+                </div>
+
+                <div class="amenity">
+                    <i class="fa-solid fa-shirt"></i>
+                    <span>Laundry</span>
+                </div>
+
+            </div>
+
+
+            <!-- LOCATION -->
+            <h2 class="section-heading">
+                Location
+            </h2>
+
+            <div class="address">
+                <i class="fa-solid fa-location-dot"></i>
+
+                <span>
+                    <%= listing.location %>, <%= listing.country %>
+                </span>
+            </div>
+
+
+            <!-- MAP -->
+         <!-- <div class="map-box">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Map</span>
+        </div> -->
+
+
+            <!-- NEARBY -->
+            <div class="nearby">
+
+                <span>Nearby</span>
+
+                <div class="nearby-items">
+                    <div>Metro</div>
+                    <div>Market</div>
+                    <div>College</div>
+                    <div>Bus Stop</div>
+                </div>
+
+            </div>
+
+
+            <!-- EDIT DELETE -->
+            <div class="pg-buttons">
+
+                <a
+                    href="/listings/<%=listing._id%>/edit"
+                    class="btn btn-dark"
+                >
+                    Edit
+                </a>
+
+                <form
+                    method="POST"
+                    action="/listings/<%=listing._id%>?_method=DELETE"
+                >
+                    <button class="btn btn-dark">
+                        Delete
+                    </button>
+                </form>
+
+            </div>
+
+
+            <!-- REVIEWS -->
+            <div class="reviews-section">
+
+                <h2 class="section-heading">
+                    Reviews
+                </h2>
+
+
+                <% if(currUser) { %>
+
+                    <h4>Leave a review</h4>
+
+                    <form
+                        action="/listings/<%=listing.id%>/reviews"
+                        method="POST"
+                        novalidate
+                        class="needs-validation"
+                    >
+
+                        <div class="mb-3 mt-3">
+
+                            <label for="rating">
+                                Rating
+                            </label>
+
+                            <fieldset class="starability-slot">
+
+                                <input
+                                    type="radio"
+                                    id="rate1"
+                                    name="review[rating]"
+                                    value="1"
+                                />
+                                <label for="rate1">1 star</label>
+
+                                <input
+                                    type="radio"
+                                    id="rate2"
+                                    name="review[rating]"
+                                    value="2"
+                                />
+                                <label for="rate2">2 stars</label>
+
+                                <input
+                                    type="radio"
+                                    id="rate3"
+                                    name="review[rating]"
+                                    value="3"
+                                />
+                                <label for="rate3">3 stars</label>
+
+                                <input
+                                    type="radio"
+                                    id="rate4"
+                                    name="review[rating]"
+                                    value="4"
+                                />
+                                <label for="rate4">4 stars</label>
+
+                                <input
+                                    type="radio"
+                                    id="rate5"
+                                    name="review[rating]"
+                                    value="5"
+                                />
+                                <label for="rate5">5 stars</label>
+
+                            </fieldset>
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label for="comment">
+                                Comment
+                            </label>
+
+                            <textarea
+                                id="comment"
+                                name="review[comment]"
+                                class="form-control"
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <button class="btn btn-outline-dark">
+                            Submit Review
+                        </button>
+
+                    </form>
+
+                <% } %>
+
+
+                <hr>
+
+
+                <h4>All Reviews</h4>
+
+                <div class="reviews-grid">
+
+                    <% for(review of listing.reviews){ %>
+
+                        <div class="review-card">
+
+                            <h5>
+                                <%= review.author.username %>
+                            </h5>
+
+                            <p
+                                class="starability-result"
+                                data-rating="<%=review.rating%>"
+                            ></p>
+
+                            <p>
+                                <%=review.comment%>
+                            </p>
+
+                            <form
+                                method="POST"
+                                action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE"
+                            >
+                                <button class="btn btn-sm btn-dark">
+                                    Delete
+                                </button>
+                            </form>
+
+                        </div>
+
+                    <% } %>
+
+                </div>
+
+            </div>
+
         </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="pg-right">
+
+            <!-- CONTACT -->
+            <div class="contact-card">
+
+                <h2>Get in Touch</h2>
+
+                <a href="#" class="whatsapp-btn">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    Chat on WhatsApp
+                </a>
+
+                <div class="contact-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <strong>9810136104</strong>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Schedule a Visit</span>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>100% Safe & Secure</span>
+                </div>
+
+            </div>
+
+
+            <!-- QUICK INFO -->
+            <div class="quick-info">
+
+                <h2>Quick Info</h2>
+
+                <div class="info-row">
+                    <span>Gender</span>
+                    <strong>Girls</strong>
+                </div>
+
+                <div class="info-row">
+                    <span>City</span>
+                    <strong><%= listing.country %></strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Starting Price</span>
+                    <strong>
+                        ₹<%= listing.price.toLocaleString("en-IN") %>/month
+                    </strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Amenities</span>
+                    <strong>6 included</strong>
+                </div>
+
+            </div>
+
+
+            <!-- INQUIRY -->
+            <div class="inquiry-card">
+
+                <h2>Send an Inquiry</h2>
+
+                <p>
+                    About <%= listing.title %>
+                </p>
+
+                <input
+                    type="text"
+                    placeholder="Your name"
+                >
+
+                <input
+                    type="text"
+                    placeholder="+91 Phone Number"
+                >
+
+                <input
+                    type="email"
+                    placeholder="you@example.com"
+                >
+
+                <input
+                    type="text"
+                    placeholder="Single, Double, or Triple"
+                >
+
+                <textarea
+                    placeholder="Your message"
+                ></textarea>
+
+                <button>
+                    Send Inquiry
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>

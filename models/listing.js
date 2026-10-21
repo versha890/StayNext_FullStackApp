@@ -11,10 +11,25 @@ const listingSchema =  new Schema({
     description : {
         type : String,
     },
-    image : {
-       url : String,
-       filename : String,
-    },
+    image: {
+    url: String,
+    filename: String,
+},
+
+image2: {
+    url: String,
+    filename: String,
+},
+
+image3: {
+    url: String,
+    filename: String,
+},
+
+image4: {
+    url: String,
+    filename: String,
+},
     price :{
         type:Number,
     },

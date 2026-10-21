@@ -26,11 +26,17 @@ const validateListing = (req ,res , next)=>{
 router
     .route("/")
     .get(wrapAsync(listingController.index))           //sshow main page
-    .post(                                   //create route add that new form details in Listings 4
-    isLoggedIn,            
-    upload.single("listing[image]"),
-    validateListing, 
-    wrapAsync(listingController.createListing));
+    .post(
+    isLoggedIn,
+    upload.fields([
+        { name: "listing[image]", maxCount: 1 },
+        { name: "listing[image2]", maxCount: 1 },
+        { name: "listing[image3]", maxCount: 1 },
+        { name: "listing[image4]", maxCount: 1 }
+    ]),
+    validateListing,
+    wrapAsync(listingController.createListing)
+);
 
 //add new route
 router.get("/new" , isLoggedIn , listingController.renderNewForm );             //form to add new listing 3
@@ -38,12 +44,18 @@ router.get("/new" , isLoggedIn , listingController.renderNewForm );             
 router
     .route("/:id")
     .get( wrapAsync (listingController.showListing))              //show route
-    .put(                                                                //update route 
-    isLoggedIn , 
+    .put(
+    isLoggedIn,
     isOwner,
-    upload.single("listing[image]"),
-    validateListing, 
-    wrapAsync (listingController.updateListing))
+    upload.fields([
+        { name: "listing[image]", maxCount: 1 },
+        { name: "listing[image2]", maxCount: 1 },
+        { name: "listing[image3]", maxCount: 1 },
+        { name: "listing[image4]", maxCount: 1 }
+    ]),
+    validateListing,
+    wrapAsync(listingController.updateListing)
+)
     .delete( isLoggedIn , isOwner, wrapAsync (listingController.destroyListing));   //delete route
 
 
@@ -52,9 +64,8 @@ router
 router.get("/:id/edit" , 
     isLoggedIn ,
     isOwner,
-    wrapAsync(listingController.renderEditForm));
-
-
+    wrapAsync(listingController.renderEditForm)
+);
 
 
 module.exports = router;

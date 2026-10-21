@@ -34,13 +34,40 @@
             id="image">
         </div> -->
         <div class="mb-3">
-            <label for="image" class="form-lable">Upload Image</label>
-            <input type="file"  
-            name="listing[image]" 
-            class="form-control"
-            id="image">
-            <!-- required -->
-        </div>
+    <label class="form-label">Upload PG Photos</label>
+
+    <input 
+        type="file"
+        name="listing[image]"
+        class="form-control mb-2"
+        accept="image/*"
+    >
+
+    <input 
+        type="file"
+        name="listing[image2]"
+        class="form-control mb-2"
+        accept="image/*"
+    >
+
+    <input 
+        type="file"
+        name="listing[image3]"
+        class="form-control mb-2"
+        accept="image/*"
+    >
+
+    <input 
+        type="file"
+        name="listing[image4]"
+        class="form-control"
+        accept="image/*"
+    >
+
+    <small class="text-muted">
+        Upload up to 4 photos: room, bathroom, exterior, common area etc.
+    </small>
+</div>
 
 
         

@@ -8,7 +8,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
-const methodOverride = require("method-override");
+const methodOverride = require("method-override");// to use put and delete req ?_method = delete , it is a middle ware
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
@@ -37,10 +37,10 @@ async function main() {
 
 
 app.set("view engine" , "ejs");
-app.set("views" , path.join(__dirname , "views"));
-app.use(express.static(path.join(__dirname , "public")));
-app.use(express.urlencoded({extended : true}));
-app.use(methodOverride("_method"));
+app.set("views" , path.join(__dirname , "views")); //to find ejs file
+app.use(express.static(path.join(__dirname , "public")));  //for add css and more js , it is a middleware
+app.use(express.urlencoded({extended : true}));   //to get data from req.body in routs
+app.use(methodOverride("_method"));  // for put or delete route(with  get or post)
 app.engine("ejs" , ejsMate);
 
 
@@ -84,13 +84,6 @@ passport.deserializeUser(User.deserializeUser());
 // const listings = require("./routes/listing.js");
 // const reviews = require("./routes/review.js");
 // const user = require("./routes/user.js");
-
-
-
-
-
-
-
 
 
 // app.get("/" , (req , res)=>{
